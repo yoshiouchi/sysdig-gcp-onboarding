@@ -39,7 +39,7 @@ jobs:
         run: |
           echo "Setting environment variables..."
           export TF_VAR_GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
-          export TF_VAR_SYSDIG_SECURE_ENDPOINT_URL=${{ SYSDIG_URL }}
+          export TF_VAR_SYSDIG_SECURE_ENDPOINT_URL=$SYSDIG_URL
           export TF_VAR_SYSDIG_SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN }}
 
       # Step 6: Terraform Init
