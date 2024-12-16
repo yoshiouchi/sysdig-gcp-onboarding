@@ -43,7 +43,7 @@ jobs:
           TF_VAR_SYSDIG_SECURE_API_TOKEN: ${{ secrets.SYSDIG_SECURE_API_TOKEN }}
         run: |
           terraform init
-          terraform plan -var="GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}" -var="GCP_REGION=${{ secrets.GCP_REGION }}" -var="SYSDIG_SECURE_ENDPOINT_URL=${{ secrets.SYSDIG_SECURE_ENDPOINT_URL }}" -var="SYSDIG_SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN }}"
+          terraform plan
           terraform apply -auto-approve
         working-directory: ./terraform
         
