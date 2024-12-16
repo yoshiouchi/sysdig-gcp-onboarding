@@ -35,19 +35,14 @@ jobs:
           terraform_version: 1.5.6
 
       # Step 5: Set environment variables
-      - name: Set environment variables
+      - name: Terraform Init and Apply
+        env:
+          TF_VAR_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          TF_VAR_GCP_REGION: ${{ secrets.GCP_REGION }}
+          TF_VAR_SYSDIG_SECURE_ENDPOINT_URL: ${{ secrets.SYSDIG_SECURE_ENDPOINT_URL }}
+          TF_VAR_SYSDIG_SECURE_API_TOKEN: ${{ secrets.SYSDIG_SECURE_API_TOKEN }}
         run: |
-          echo "Setting environment variables..."
-          export TF_VAR_GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
-          export TF_VAR_SYSDIG_SECURE_ENDPOINT_URL=$SYSDIG_URL
-          export TF_VAR_SYSDIG_SECURE_API_TOKEN=${{ secrets.SYSDIG_SECURE_API_TOKEN }}
-
-      # Step 6: Terraform Init
-      - name: Terraform Init
-        run: terraform init
+          terraform init
+          terraform apply -auto-approve
         working-directory: ./terraform
-
-      # Step 7: Terraform Apply
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-        working-directory: ./terraform
+        
