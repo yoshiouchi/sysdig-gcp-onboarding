@@ -38,7 +38,7 @@ jobs:
       - name: Set environment variables
         env:
           TF_VAR_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          TF_VAR_SYSDIG_SECURE_ENDPOINT_URL: ${{ secrets.SYSDIG_SECURE_ENDPOINT_URL }}
+          TF_VAR_SYSDIG_SECURE_ENDPOINT_URL: ${{ SYSDIG_URL }}
           TF_VAR_SYSDIG_SECURE_API_TOKEN: ${{ secrets.SYSDIG_SECURE_API_TOKEN }}
 
       # Step 6: Terraform Init
