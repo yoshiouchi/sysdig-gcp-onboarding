@@ -92,7 +92,7 @@ provider "sysdig" {
   sysdig_secure_api_token = var.SYSDIG_SECURE_API_TOKEN
 }
 
-resource "sysdig_secure_cloud_auth_account" "gcp_project_" + var.GCP_PROJECT_ID {
+resource "sysdig_secure_cloud_auth_account" "gcp_project" {
   enabled       = true
   provider_id   = var.GCP_PROJECT_ID
   provider_type = "PROVIDER_GCP"
