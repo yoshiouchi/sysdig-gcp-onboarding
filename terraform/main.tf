@@ -1,5 +1,8 @@
 locals {
   project = var.GCP_PROJECT_ID
+  sysdig_secure_url = var.SYSDIG_SECURE_ENDPOINT_URL
+  sysdig_secure_api_token = SYSDIG_SECURE_API_TOKEN
+  gcp_region = var.GCP_REGION
   services = [
     "sts.googleapis.com",
     "cloudasset.googleapis.com",
@@ -11,22 +14,42 @@ locals {
   ]
 }
 
+terraform {
+  required_providers {
+    sysdig = {
+      source  = "sysdiglabs/sysdig"
+      version = "~>1.42"
+    }
+  }
+}
+
+provider "sysdig" {
+  sysdig_secure_url       = local.sysdig_secure_url
+  sysdig_secure_api_token = local.sysdig_secure_api_token
+}
+
 provider "google" {
-  project     = local.project
-  region      = var.GCP_REGION
+  project = local.project
+  region  = local.gcp_region
 }
 
-resource "google_project_service" "enable_cspm_apis" {
-  project  = local.project
-
-  for_each = toset(local.services)
-  service = each.value
-  disable_on_destroy = false
+module "onboarding" {
+  source     = "sysdiglabs/secure/google//modules/onboarding"
+  version    = "~>0.3"
+  project_id = local.project
 }
 
-output "enabled_projects" {
-  value = distinct([for service in local.services : google_project_service.enable_cspm_apis[service].project])
+module "config-posture" {
+  source                   = "sysdiglabs/secure/google//modules/config-posture"
+  version                  = "~>0.3"
+  project_id               = module.onboarding.project_id
+  sysdig_secure_account_id = module.onboarding.sysdig_secure_account_id
 }
-output "enabled_services" {
-  value = [for service in local.services : google_project_service.enable_cspm_apis[service].service]
+
+resource "sysdig_secure_cloud_auth_account_feature" "config_posture" {
+  account_id = module.onboarding.sysdig_secure_account_id
+  type       = "FEATURE_SECURE_CONFIG_POSTURE"
+  enabled    = true
+  components = [module.config-posture.service_principal_component_id]
+  depends_on = [module.config-posture]
 }
