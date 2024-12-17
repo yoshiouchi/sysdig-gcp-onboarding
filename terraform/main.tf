@@ -12,7 +12,7 @@ module "project-posture" {
 module "single-project-threat-detection" {
   source        = "sysdiglabs/secure/google//modules/services/webhook-datasource"
   project_id    = var.GCP_PROJECT_ID
-  push_endpoint = var.SYSDIG_SECURE_ENDPOINT_URL + "/api/cloudingestion/gcp/v2/d11c4922-26b2-41c8-8e7c-751486c48f9b"
+  push_endpoint = format("%s/api/cloudingestion/gcp/v2/d11c4922-26b2-41c8-8e7c-751486c48f9b", var.SYSDIG_SECURE_ENDPOINT_URL)
   external_id   = "31063ec668b33ff8512d6952a1bf807e"
   exclude_logs_filter = [
     {
