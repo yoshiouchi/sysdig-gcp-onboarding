@@ -1,7 +1,7 @@
 locals {
   project = var.GCP_PROJECT_ID
   sysdig_secure_url = var.SYSDIG_SECURE_ENDPOINT_URL
-  sysdig_secure_api_token = SYSDIG_SECURE_API_TOKEN
+  sysdig_secure_api_token = var.SYSDIG_SECURE_API_TOKEN
   gcp_region = var.GCP_REGION
   services = [
     "sts.googleapis.com",
