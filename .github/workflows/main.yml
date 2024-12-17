@@ -20,7 +20,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      #Test Step: Verify GCP Auth.
+      #Test Step: Verify GCP Auth
       - name: Test GCP project access
         run: gcloud projects describe ${{ secrets.GCP_PROJECT_ID }}
         env:
