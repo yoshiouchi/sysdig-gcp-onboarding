@@ -37,16 +37,16 @@ jobs:
           terraform_version: 1.5.6
 
       # Step 5: Import existing resources into Terraform state
-      - name: Import existing resources
-        env:
-          TF_VAR_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-        run: |
-          terraform init
-          terraform import google_service_account.sa "projects/${{ secrets.GCP_PROJECT_ID }}/serviceAccounts/sysdig-secure-lv7z@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com"
-          terraform import google_pubsub_topic.ingestion_topic "projects/${{ secrets.GCP_PROJECT_ID }}/topics/ingestion_topic"
-          terraform import google_project_iam_custom_role.custom_ingestion_auth_role "projects/${{ secrets.GCP_PROJECT_ID }}/roles/SysdigIngestionAuthRole"
-        working-directory: ./terraform
+      # - name: Import existing resources
+      #   env:
+      #     TF_VAR_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      #   run: |
+      #     terraform init
+      #     terraform import google_service_account.sa "projects/${{ secrets.GCP_PROJECT_ID }}/serviceAccounts/sysdig-secure-lv7z@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com"
+      #     terraform import google_pubsub_topic.ingestion_topic "projects/${{ secrets.GCP_PROJECT_ID }}/topics/ingestion_topic"
+      #     terraform import google_project_iam_custom_role.custom_ingestion_auth_role "projects/${{ secrets.GCP_PROJECT_ID }}/roles/SysdigIngestionAuthRole"
+      #   working-directory: ./terraform
 
       # Step 6: Terraform Init and Apply
       - name: Terraform Init and Apply
