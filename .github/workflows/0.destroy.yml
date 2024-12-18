@@ -1,4 +1,4 @@
-name: Destroy GCP Onboarding with Sysdig
+name: 4. Destroy GCP Onboarding with Sysdig
 
 on:
   # Uncomment this for a manual trigger in GitHub Workflow
@@ -19,24 +19,18 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      # Step 3: Verify GCP Auth
-      - name: Test GCP project access
-        run: gcloud projects describe ${{ secrets.GCP_PROJECT_ID }}
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-
-      # Step 4: Set GCP project ID
+      # Step 3: Set GCP project ID
       - name: Set GCP Project ID
         run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 5: Setup Terraform
+      # Step 4: Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.6
 
-      # Step 6: Terraform Init and Apply
-      - name: Terraform Init and Apply
+      # Step 5: Terraform Init, Apply and Destroy
+      - name: Terraform Init, Apply and Destroy
         env:
           TF_VAR_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           TF_VAR_GCP_REGION: ${{ secrets.GCP_REGION }}
