@@ -1,4 +1,4 @@
-name: Enable CSPM and GCP Onboarding
+name: Destroy GCP Onboarding with Sysdig
 
 on:
   # Uncomment this for a manual trigger in GitHub Workflow
@@ -43,7 +43,5 @@ jobs:
           TF_VAR_SYSDIG_SECURE_ENDPOINT_URL: ${{ secrets.SYSDIG_SECURE_ENDPOINT_URL }}
           TF_VAR_SYSDIG_SECURE_API_TOKEN: ${{ secrets.SYSDIG_SECURE_API_TOKEN }}
         run: |
-          terraform init
-          terraform plan
-          terraform apply -auto-approve
+          terraform destroy
         working-directory: ./terraform
