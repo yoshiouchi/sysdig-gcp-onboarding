@@ -43,5 +43,6 @@ jobs:
           TF_VAR_SYSDIG_SECURE_ENDPOINT_URL: ${{ secrets.SYSDIG_SECURE_ENDPOINT_URL }}
           TF_VAR_SYSDIG_SECURE_API_TOKEN: ${{ secrets.SYSDIG_SECURE_API_TOKEN }}
         run: |
+          terraform init
           terraform destroy
         working-directory: ./terraform
