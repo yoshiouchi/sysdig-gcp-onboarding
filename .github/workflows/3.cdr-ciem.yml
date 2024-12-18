@@ -1,4 +1,4 @@
-name: Apply the latest sink filter to GCP
+name: 3. Enable CDR and CIEM
 
 on:
   # Uncomment this for a manual trigger in GitHub Workflow
@@ -44,4 +44,4 @@ jobs:
           terraform init
           terraform plan
           terraform apply -auto-approve
-        working-directory: ./cdr
+        working-directory: ./cdr-ciem
