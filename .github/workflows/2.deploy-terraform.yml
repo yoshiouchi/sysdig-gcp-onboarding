@@ -1,4 +1,4 @@
-name: Deploy resources to complete initial onboarding
+name: 2. Deploy resources to complete initial onboarding
 
 on:
   # Uncomment this for a manual trigger in GitHub Workflow
