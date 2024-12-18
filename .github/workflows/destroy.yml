@@ -44,5 +44,6 @@ jobs:
           TF_VAR_SYSDIG_SECURE_API_TOKEN: ${{ secrets.SYSDIG_SECURE_API_TOKEN }}
         run: |
           terraform init
-          terraform destroy
+          terraform apply -auto-approve
+          terraform destroy -auto-approve
         working-directory: ./terraform
