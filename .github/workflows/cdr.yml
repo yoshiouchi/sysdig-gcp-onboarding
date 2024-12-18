@@ -1,9 +1,8 @@
 name: Apply the latest sink filter to GCP
 
 on:
-  push:
-    branches:
-      - main
+  # Uncomment this for a manual trigger in GitHub Workflow
+  workflow_dispatch:
 
 jobs:
   apply-terraform:
