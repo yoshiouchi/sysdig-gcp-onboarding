@@ -69,6 +69,21 @@ module "pub-sub" {
             "google.container.v1.ClusterManager.GetCluster"
           )
       EOT
+    },
+    {
+      name = "dns.googleapis.com"
+      description = "Exclude services/methods from dns.googleapis.com"
+      filter = <<EOT
+        protoPayload.serviceName = "dns.googleapis.com" AND
+          protoPayload.methodName:(
+              "dns.changes.create" OR
+              "dns.managedZones.create" OR
+              "dns.managedZones.delete" OR
+              "dns.managedZones.patch" OR
+              "dns.resourceRecordSets.delete" OR
+              "dns.resourceRecordSets.update"
+          ) 
+      EOT
     }
   ]
 }
