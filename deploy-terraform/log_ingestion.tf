@@ -23,7 +23,7 @@ module "pub-sub" {
     },
     {
       name = "compute.googleapis.com"
-      description = "Exclude addresses, firewalls, instances, instancesGroupManagers, regionBackendSErvices, forwardingRules from compute.googleapis.com"
+      description = "Exclude services/methods from compute.googleapis.com"
       filter = <<EOT
         protoPayload.serviceName = "compute.googleapis.com" AND
           protoPayload.methodName:(
@@ -43,6 +43,16 @@ module "pub-sub" {
             "v1.compute.backendServices.get" OR
             "v1.compute.backendServices.getHealth" OR
             "beta.compute.backendServices.get"
+          )
+      EOT
+    },
+    {
+      name = "logging.googleapis.com"
+      description = "Exclude LoggingServiceV2.ListLogEntries from logging.googleapis.com"
+      filter = <<EOT
+        protoPayload.serviceName = "logging.googleapis.com" AND
+          protoPayload.methodName:(
+            "google.logging.v2.LoggingServiceV2.ListLogEntries"
           )
       EOT
     }
