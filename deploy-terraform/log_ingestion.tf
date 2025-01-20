@@ -71,18 +71,16 @@ module "pub-sub" {
       EOT
     },
     {
-      name = "dns.googleapis.com"
-      description = "Exclude services/methods from dns.googleapis.com"
+      name = "bigquery.googleapis.com"
+      description = "Exclude services/methods from bigquery.googleapis.com"
       filter = <<EOT
-        protoPayload.serviceName = "dns.googleapis.com" AND
+        protoPayload.serviceName = "bigquery.googleapis.com" AND
           protoPayload.methodName:(
-              "dns.changes.create" OR
-              "dns.managedZones.create" OR
-              "dns.managedZones.delete" OR
-              "dns.managedZones.patch" OR
-              "dns.resourceRecordSets.delete" OR
-              "dns.resourceRecordSets.update"
-          ) 
+            "google.cloud.bigquery.v2.JobService.Query" OR
+            "jobservice.jobcompleted" OR
+            "jobservice.getqueryresults" OR
+            "jobservice.query"
+          )
       EOT
     }
   ]
