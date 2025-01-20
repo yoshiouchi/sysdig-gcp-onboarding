@@ -55,6 +55,20 @@ module "pub-sub" {
             "google.logging.v2.LoggingServiceV2.ListLogEntries"
           )
       EOT
+    },
+    {
+      name = "container.googleapis.com"
+      description = "Exclude services/methods from container.googleapis.com"
+      filter = <<EOT
+        protoPayload.serviceName = "container.googleapis.com" AND
+          protoPayload.methodName:(
+            "google.container.v1beta1.ClusterManager.ListClusters" OR
+            "google.container.v1beta1.ClusterManager.ListOperations" OR
+            "google.container.v1.ClusterManager.ListClusters" OR
+            "google.container.v1beta1.ClusterManager.GetCluster" OR
+            "google.container.v1.ClusterManager.GetCluster"
+          )
+      EOT
     }
   ]
 }
